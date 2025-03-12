@@ -2,6 +2,7 @@
 using Academy.Application.Repositories;
 using Academy.Application.Services.Contracts;
 using Academy.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace Academy.Application.Services;
 
@@ -22,12 +23,12 @@ public class StudentManager : IStudentService
             GroupId = createDto.GroupId
         };
 
-        _repository.AddStudent(student);
+        _repository.Add(student);
     }
 
     public StudentDto GetStudent(Func<Student, bool> predicate)
     {
-        var student = _repository.GetStudent(predicate);
+        var student = _repository.Get(predicate);
 
         var studentDto = new StudentDto
         {
@@ -39,11 +40,11 @@ public class StudentManager : IStudentService
         return studentDto;
     }
 
-    public List<StudentDto> GetStudents(Func<Student, bool> predicate)
+    public List<StudentDto> GetStudents(Expression<Func<Student, bool>>? predicate = null)
     {
         var studentDtos = new List<StudentDto>();
 
-        foreach (var item in _repository.GetStudents(predicate))
+        foreach (var item in _repository.GetAll(predicate))
         {
             studentDtos.Add(new StudentDto 
             { 
@@ -56,11 +57,11 @@ public class StudentManager : IStudentService
 
     public void RemoveStudent(int id)
     {
-        _repository.RemoveStudent(id);
+        _repository.Remove(id);
     }
 
     public void UpdateStudent(int id, Student student)
     {
-        _repository.UpdateStudent(id, student);
+        _repository.Update(id, student);
     }
 }

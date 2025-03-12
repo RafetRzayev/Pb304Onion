@@ -2,11 +2,6 @@
 
 namespace Academy.Application.Repositories;
 
-public interface IStudentRepository
+public interface IStudentRepository : IRepository<Student>
 {
-    Student GetStudent(Func<Student, bool> predicate);
-    List<Student> GetStudents(Func<Student, bool> predicate);
-    void AddStudent(Student student);
-    void RemoveStudent(int id);
-    void UpdateStudent(int id, Student student);
 }

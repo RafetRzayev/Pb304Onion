@@ -1,4 +1,5 @@
 ﻿using Academy.Application.DTOs;
+using Academy.Application.Repositories;
 using Academy.Application.Services;
 using Academy.Domain.Entities;
 using Academy.Infrastructure.EfCore;
@@ -15,7 +16,7 @@ namespace AcademyOnion
             GroupRepository groupRepository = new GroupRepository(appDbContext);
             GroupManager groupManager = new GroupManager(groupRepository);
 
-            foreach (var item in groupManager.GetGroups(x=>x.Id>0))
+            foreach (var item in groupManager.GetGroups(x=>x.))
             {
                 Console.WriteLine(item.Name);
 
