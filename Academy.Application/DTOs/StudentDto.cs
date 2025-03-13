@@ -6,3 +6,9 @@ public class StudentDto
     public string? Name { get; set; }
     public string? GroupName { get; set; }
 }
+
+public class StudentCreateDto
+{
+    public string Name { get; set; }
+    public int GroupId { get; set; }
+}

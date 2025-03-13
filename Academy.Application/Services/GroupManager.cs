@@ -22,6 +22,14 @@ public class GroupManager : IGroupService
             Name = createDto.Name,
         };
 
+        foreach (var teacherId in createDto.TeacherIds)
+        {
+            group.TeacherGroups.Add(new TeacherGroup
+            {
+                TeacherId = teacherId,
+            });
+        }
+
         _repository.Add(group);
     }
 
@@ -48,7 +56,8 @@ public class GroupManager : IGroupService
             {
                 Id = item.Id,
                 Name = item.Name,
-                Students = item.Students.Select(x => new StudentDto { Id = x.Id, Name = x.Name }).ToList()
+                Students = item.Students.Select(x => new StudentDto { Id = x.Id, Name = x.Name }).ToList(),
+                Teachers = item.TeacherGroups.Select(tg=>new TeacherDto { Id = tg.TeacherId, Name = tg.Teacher?.Name}).ToList()
             });
         }
 
